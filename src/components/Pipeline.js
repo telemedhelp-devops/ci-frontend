@@ -9,10 +9,11 @@ export default class Pipeline extends BaseComponent {
 	}
 
 	render() {
+		console.log(this.props.pipeline);
 		return (
-			<div className='pipeline'>
-				test
-			</div>
+			<tr className='pipeline'>
+				<td>{this.props.pipeline.ProjectName}</td><td>{this.props.pipeline.TagName}</td>
+			</tr>
 		)
 	}
 }

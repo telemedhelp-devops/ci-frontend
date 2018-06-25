@@ -5,8 +5,9 @@ import './App.css';
 
 class App extends BaseComponent {
 	render() {
+		//console.log('App', this);
 		return (
-			<Pipelines />
+			<Pipelines history={this.props.history} />
 		);
 	}
 }

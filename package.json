@@ -3,9 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "^4.1.1",
+    "classnames": "^2.2.6",
+    "history": "^4.7.2",
+    "jquery": "^3.3.1",
+    "lodash-es": "^4.17.10",
+    "popper.js": "^1.14.3",
     "react": "^16.3.2",
+    "react-bootstrap": "^0.32.1",
+    "react-bootstrap-table": "^4.3.1",
+    "react-bootstrap-table-next": "^0.1.13",
+    "react-bootstrap-table2-editor": "^0.2.1",
+    "react-bootstrap-table2-filter": "^0.2.0",
+    "react-confirm-bootstrap": "^5.3.0",
+    "react-confirm-button": "^0.1.0",
     "react-dom": "^16.3.2",
-    "react-scripts": "1.1.4"
+    "react-modal": "^3.4.5",
+    "react-redux": "^5.0.7",
+    "react-scripts": "1.1.4",
+    "redux": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
