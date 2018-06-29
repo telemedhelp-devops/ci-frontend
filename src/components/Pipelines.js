@@ -16,6 +16,7 @@ export default class Pipelines extends BaseComponent {
 			pipelines: null,
 			isLoading: true,
 			me: {},
+			gitlabUrl: null,
 		}
 	}
 
@@ -29,8 +30,10 @@ export default class Pipelines extends BaseComponent {
 
 	considerMe(me) {
 		console.log('considerMe', me);
+		var myGitlabPage = me.GitLabUser.RawData.web_url;
 		this.setState({
 			me: me,
+			gitlabUrl: myGitlabPage.substring(0, myGitlabPage.length - me.GitLabUser.NickName.length-1),
 		});
 		this.api("pipelines").then(response => this.considerPipelines(response.Pipelines))
 	}
@@ -54,12 +57,23 @@ export default class Pipelines extends BaseComponent {
 
 		this.componentDidMount();
 	}
+	
+	gotoPipeline(pipeline) {
+		window.location=this.state.gitlabUrl+"/"+pipeline.GitlabNamespace+"/"+pipeline.ProjectName+"/pipelines/"+pipeline.GitlabPipelineId;
+	}
 
 	buttonsFormatter(cell, row) {
 		console.log(cell, row);
 		if (row.ApprovedAt != null) {
 			return (
-				<p>Ожидает деплоя</p>
+				<ButtonToolbar>
+					<Button
+						onClick={this.gotoPipeline.bind(this, row)}
+						className="btn btn-primary"
+					>
+						Деплоится…
+					</Button>
+				</ButtonToolbar>
 			)
 		}
 		if (row.Approvals != null) {
@@ -108,7 +122,7 @@ export default class Pipelines extends BaseComponent {
 					confirming={{
 						text: "Точно задеплоить?",
 					}}
-					className="btn btn-primary"
+					className="btn btn-success"
 				/>
 				<ConfirmButton
 					onConfirm={this.onDelete.bind(this, row.Id)}
@@ -143,7 +157,7 @@ export default class Pipelines extends BaseComponent {
 			)
 		}
 		return (
-			<BootstrapTable data={this.state.pipelines} search={true} hover={true} options={{noDataText:"нет данных"}}>
+			<BootstrapTable data={this.state.pipelines} search={true} hover={true} options={{noDataText:"нет новых версий"}}>
 				<TableHeaderColumn dataField="Id" isKey={true}  dataAlign="center" dataSort={true} headerText="№">№</TableHeaderColumn>
 				<TableHeaderColumn dataField="CreatedAt"        dataAlign="left"   dataSort={true} headerText="Дата">Дата</TableHeaderColumn>
 				<TableHeaderColumn dataField="ProjectName"      dataAlign="right"  dataSort={true} headerText="Проект">Проект</TableHeaderColumn>
